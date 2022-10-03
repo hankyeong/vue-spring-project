@@ -1,0 +1,39 @@
+# 로컬
+server:  port: 8088
+  tomcat:
+    threads:
+      max: 750 # 생성할 수 있는 thread의 총 개수
+      min-spare: 100 # 항상 활성화 되어있는(idle) thread의 개수
+    max-connections: 8192 # 수립가능한 connection의 총 개수
+#    tcp-no-delay: true
+# accept-count는 queue에 쌓였다는것은 이미 사용가능한 thread 모두 써도 처리를 못하는것이기 때문에 장애일 가능성이 높다.
+# 그래서, queue길이는 길게 주는것보다 짧게 주어 에러코드를 내려주어 에러를 처리하는것이 좋다.
+    accept-count: 0 # 작업큐의 사이즈
+    connection-timeout: 10 # timeout 판단 기준 시간, 20초
+#    max-active: 50
+#    tomcat.max-idle: 50
+#    tomcat.min-idle: 10
+#    tomcat.max-wait: -1
+#    tomcat.initial-size: 10
+#    tomcat.test-on-borrow: true
+#    tomcat.test-while-idle: true
+#    tomcat.time-between-eviction-runs-millis: 3000
+#    max-connections: 10000
+#    max-threads: 200
+#    min-spare-thread: 1
+# database
+spring:
+  profiles:    active: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/toy_memo?characterEncoding=utf8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# mybatis
+mybatis:
+#  config: mybatis-config.xml
+  type-aliases-package: com.vue.spring.model
+  mapper-locations: mapper/**/*.xml # mybatis/mapper/**/*.xml
+
+# -Dspring.profiles.active=local

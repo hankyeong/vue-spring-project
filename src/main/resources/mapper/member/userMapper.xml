@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vue.spring.mapper.UserMapper">
+
+	<insert id="memberCreate" parameterType="User">
+		INSERT INTO member
+		(
+			USER_ID, 
+			USER_PWD, 
+			USER_ADDRESS, 
+			USER_AGE
+		)
+		VALUES (
+			#{userId}, 
+			#{userPwd}, 
+			#{userAddress}, 
+			#{userAge}
+		)
+	</insert>
+	
+	<update id="memberUpdate" parameterType="User">
+		UPDATE member
+		   SET USER_PWD=#{userPwd}, USER_ADDRESS=#{userAddress}, UPDATE_TIME=SYSDATE
+		 WHERE USER_ID=#{userId}
+	</update>
+	
+	<delete id="memberDelete" parameterType="User">
+		DELETE FROM member
+		 WHERE USER_ID=#{userId}
+	</delete>
+	
+	<select id="memberSelect" parameterType="string" resultType="User">
+		SELECT 
+			ID as id,
+			USER_ID as userId, 
+			USER_ADDRESS as userAddress, 
+			USER_AGE as userAge, 
+			CREATE_TIME as createTime, 
+			UPDATE_TIME as updateTime
+		  FROM member
+		 WHERE USER_ID=#{userId}
+	</select>
+	
+	<select id="memberSelectAll" resultType="User">
+		SELECT 
+			USER_ID as userId, 
+			USER_ADDRESS as userAddress, 
+			USER_AGE as userAge, 
+			CREATE_TIME as createTime, 
+			UPDATE_TIME as updateTime
+		  FROM member
+		 WHERE 1=1
+	</select>
+	
+	<select id="memberlogin" parameterType="string" resultType="User">
+		SELECT 
+			ID as id,
+			USER_ID as userId, 
+			USER_ADDRESS as userAddress, 
+			USER_AGE as userAge, 
+			CREATE_TIME as createTime, 
+			UPDATE_TIME as updateTime
+		  FROM member
+		 WHERE USER_ID=#{userId} 
+		   AND USER_PWD=#{userPwd}
+	</select>
+	
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- <settings>
+		카멜케이스 자동 적용 sql 작성시 as(별칭)으로 필드명과 맞추지않아도 된다
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings> -->
+
+	<typeAliases>
+		<!-- resultType에 풀패키지명 대신 여기서 설정한 별칭으로 대체가능 -->
+		<!-- <typeAlias type="com.vue.spring.model.BroadCastModel" alias="BroadCast" /> -->
+	</typeAliases>
+
+	<mappers>
+		<!-- 사용할 mapper xml 위치 -->
+		<!-- <mapper resource="mapper/*/BlogMapper.xml" /> -->
+	</mappers>
+
+</configuration>

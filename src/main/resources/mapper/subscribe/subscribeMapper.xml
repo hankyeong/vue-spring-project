@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vue.spring.mapper.SubscribeMapper">
+
+	<insert id="subscribe" parameterType="SubscribeModel">
+		INSERT INTO subscribe
+		(
+			USER_KEY, 
+			SPORTS_NAME
+		)
+		VALUES (
+			#{userKey}, 
+			#{sportsName}
+		)
+	</insert>
+	
+	<select id="subscribeChk" parameterType="SubscribeModel" resultType="SubscribeModel">
+		SELECT 
+			ID as id,
+			USER_KEY as userKey, 
+			SPORTS_NAME as sportsName, 
+			SUBSCRIBE_CNT as subscribeCnt, 
+			AUTOMATIC_PAYMENT_YN as automaticPaymentYn, 
+			CREATE_TIME as createTime,
+			UPDATE_TIME as updateTime,
+			EXPIRY_TIME as expiryTime
+		  FROM subscribe
+		 WHERE USER_KEY=#{userKey} 
+		   AND SPORTS_NAME=#{sportsName}
+	</select>
+	
+	<update id="subscribeUpdate" parameterType="SubscribeModel">
+		UPDATE subscribe
+		   SET EXPIRY_TIME=(current_timestamp + interval 1 month), UPDATE_TIME=current_timestamp
+		 WHERE USER_KEY=#{userKey} 
+		   AND SPORTS_NAME=#{sportsName}
+	</update>
+	
+	<select id="subscribeSelectAll" parameterType="SubscribeModel" resultType="String">
+		SELECT GROUP_CONCAT(SPORTS_NAME SEPARATOR ',') AS sportsName 
+		  FROM subscribe
+		 WHERE USER_KEY = #{userKey}
+		   AND EXPIRY_TIME <![CDATA[>]]> current_timestamp
+	</select>
+	
+	<!-- 아래는 참고용 쿼리 -->
+	
+	<delete id="memberDelete" parameterType="User">
+		DELETE FROM member
+		 WHERE USER_ID=#{userId}
+	</delete>
+	
+	<select id="memberlogin" parameterType="string" resultType="User">
+		SELECT 
+			ID as id,
+			USER_ID as userId, 
+			USER_ADDRESS as userAddress, 
+			USER_AGE as userAge, 
+			CREATE_TIME as createTime, 
+			UPDATE_TIME as updateTime
+		  FROM member
+		 WHERE USER_ID=#{userId} 
+		   AND USER_PWD=#{userPwd}
+	</select>
+	
+</mapper>

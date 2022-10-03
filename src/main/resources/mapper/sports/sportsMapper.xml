@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vue.spring.mapper.SportsMapper">
+
+	<!-- 스포츠 추가 -->
+	<insert id="addSports" parameterType="Sports">
+		INSERT INTO sports
+		(
+			SPORTS_NAME
+		)
+		VALUES (
+			#{sportsName}
+		)
+	</insert>
+	
+	<!-- 스포츠 조회 -->
+	<select id="sportsChk" parameterType="Sports" resultType="Sports">
+		SELECT 
+			ID as id,
+			SPORTS_NAME as sportsName, 
+			CREATE_TIME as createTime,
+			UPDATE_TIME as updateTime
+		  FROM sports
+		 WHERE SPORTS_NAME=#{sportsName}
+	</select>
+	
+	<!-- <update id="subscribeUpdate" parameterType="SubscribeModel">
+		UPDATE subscribe
+		   SET EXPIRY_TIME=(current_timestamp + interval 1 month), UPDATE_TIME=current_timestamp
+		 WHERE USER_KEY=#{userKey} 
+		   AND SPORTS_NAME=#{sportsName}
+	</update> -->
+	
+	<!-- 전체 스포츠 조회 -->
+	<select id="selectAllSports" resultType="String">
+		SELECT SPORTS_NAME AS sportsName 
+		  FROM sports
+		 WHERE 1=1
+	</select>
+	
+	
+</mapper>

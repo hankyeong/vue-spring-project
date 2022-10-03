@@ -1,0 +1,20 @@
+# 개발
+server:
+  port: 8088
+# database
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/toy_memo?characterEncoding=utf8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# mybatis
+mybatis:
+  config: mybatis-config.xml
+  type-aliases-package: com.vue.spring.model
+  mapper-locations: mybatis/mapper/**/*.xml
+
+# -Dspring.profiles.active=dev
